@@ -8,6 +8,15 @@ use Illuminate\Support\Facades\Validator;
 
 class TypeController extends Controller
 {
+    public function index()
+    {
+        $type = Type::get();
+
+        return response()->json([
+            'data' => $type
+        ], 200);
+    }
+
     public function store(Request $request)
     {
         $validated = Validator::make($request->all(), [
