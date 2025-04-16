@@ -71,6 +71,12 @@ class BedroomController extends Controller
 
         $bedroom = Bedroom::where('id', $id)->first();
 
+        if(!$bedroom) {
+            return response()->json([
+                'status' => 'not found'
+            ], 204);
+        }
+
         if($request->file('image')) {
             Storage::delete($bedroom->image);
             $file = $request->file('image');
@@ -89,5 +95,20 @@ class BedroomController extends Controller
             'status' => 'success',
             'data' => $bedroom
         ], 201);
+    }
+
+    public function destroy($id)
+    {
+        $bedroom = Bedroom::where('id', $id)->first();
+
+        if(!$bedroom) {
+            return response()->json([
+                'status' => 'not found'
+            ], 204);
+        }
+
+        $bedroom->delete();
+
+        return response()->json([], 204);
     }
 }
