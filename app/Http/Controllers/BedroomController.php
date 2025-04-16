@@ -17,6 +17,15 @@ class BedroomController extends Controller
         ], 200);
     }
 
+    public function show($id) 
+    {
+        $bedroom = Bedroom::where('id' ,$id)->with(['type'])->first();
+
+        return response()->json([
+            'data' => $bedroom
+        ], 200);
+    }
+
     public function store(Request $request)
     {
         $validated = Validator::make($request->all(), [
