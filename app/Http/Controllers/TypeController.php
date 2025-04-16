@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bedroom;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -74,5 +75,21 @@ class TypeController extends Controller
             'status' => 'success',
             'data' => $type
         ], 201);
+    }
+
+    public function destroy($id)
+    {
+        $type = Type::where('id', $id)->first();
+
+        if(!$type) {
+            return response()->json([
+                'status' => 'not found'
+            ], 403);
+        }
+
+        $bedroom = Bedroom::where('type_id', $id)->delete();
+        $type->delete();
+
+        return response()->json([], 204);
     }
 }
