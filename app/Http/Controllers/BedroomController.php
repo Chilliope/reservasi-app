@@ -15,7 +15,7 @@ class BedroomController extends Controller
 
     public function store(Request $request)
     {
-        $validated = Validator::make([
+        $validated = Validator::make($request->all(), [
             'type_id' => 'required',
             'image' => 'required'
         ]);
