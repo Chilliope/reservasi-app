@@ -17,6 +17,15 @@ class TypeController extends Controller
         ], 200);
     }
 
+    public function show($id)
+    {
+        $data = Type::where('id' ,$id)->first();
+
+        return response()->json([
+            'data' => $data
+        ], 200);
+    }
+
     public function store(Request $request)
     {
         $validated = Validator::make($request->all(), [
@@ -38,4 +47,6 @@ class TypeController extends Controller
             'data' => $type
         ]);
     }
+
+
 }
