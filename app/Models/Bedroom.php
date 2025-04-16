@@ -12,4 +12,8 @@ class Bedroom extends Model
         'created_at',
         'updated_at'
     ];
+
+    function type() {
+        return $this->belongsTo(Type::class, 'type_id');
+    }
 }

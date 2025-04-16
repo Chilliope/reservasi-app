@@ -10,7 +10,11 @@ class BedroomController extends Controller
 {
     public function index()
     {
-        return 'running';
+        $bedroom = Bedroom::with(['type'])->get();
+
+        return response()->json([
+            'data' => $bedroom
+        ], 200);
     }
 
     public function store(Request $request)
