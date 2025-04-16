@@ -48,5 +48,31 @@ class TypeController extends Controller
         ]);
     }
 
+    public function update(Request $request, $id)
+    {
+        $validated = Validator::make($request->all(), [
+            'type' => 'required',
+            'type_price' => 'required'
+        ]);
 
+        if($validated->fails()) {
+            return response()->json($validated->errors(), 400);
+        }
+
+        $type = Type::where('id', $id)->first();
+        if(!$type) {
+            return response()->json([
+                'status' => 'not found'
+            ], 403);
+        }
+
+        $type->type = $request->type;
+        $type->type_price = $request->type_price;
+        $type->save();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $type
+        ], 201);
+    }
 }
